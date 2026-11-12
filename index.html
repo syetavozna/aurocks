@@ -2,6 +2,7 @@
 <html lang="ru">
 <head>
 <meta charset="utf-8">
+<meta name="theme-color" content="#090C10">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>AUROCKS — скалодром в Петербурге</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -497,13 +498,65 @@ footer .big span{color:var(--blue)}
 footer .legal{color:#5D6876}
 .toast{background:#fff;color:#0A0D11}
 .phero{border-bottom-color:var(--line)}
+
+/* ===== v2: ближе к референсу — полностью тёмный, крупные карточки ===== */
+html{background:#090C10}
+.day{--ink:#F6F8FB;--ink-2:#B7C0CB;--muted:#8F9AA7;--paper:#0E131B;--line:rgba(255,255,255,.1);--blue-l:#75A1FF;
+  background:radial-gradient(800px 400px at 50% 0%,rgba(63,124,255,.12),transparent 70%),#0B0F15;color:var(--ink);border:1px solid var(--line);border-radius:32px}
+.day .moment{box-shadow:none}
+.day .btn-ink{background:#fff;color:#0A0D11}
+:root{--paper:#0E131B;--r:28px}
+.card,.plan,.step,.tile,.widget,.moment,.cert,.ptable,.values,.form-box{border-radius:28px}
+.card .in,.tile .in{padding:26px 28px 30px;gap:12px}
+.card h3,.tile h3{font-size:clamp(22px,2.2vw,28px);font-weight:700;letter-spacing:-.03em}
+.card p,.tile .in p{font-size:16px;color:var(--ink-2);line-height:1.55}
+.tile .ph{min-height:300px}
+.card .ph{aspect-ratio:16/11}
+.tile .go,a.go{font-size:17px;font-weight:500!important;color:var(--blue-l)!important}
+/* чипы — контурные «пилюли» */
+.chip{background:transparent;border:1px solid rgba(255,255,255,.18);color:#D9E0E8;border-radius:999px;padding:6px 14px;font-weight:500;font-size:13px}
+.chip.gold{background:var(--blue);border-color:var(--blue);color:#fff}
+.card .meta{align-items:center}
+/* атмосферные «ночные» плейсхолдеры */
+.ph,.ph.warm,.ph.light{background:
+  radial-gradient(60% 45% at 70% 35%,rgba(120,160,255,.45),transparent 70%),
+  radial-gradient(40% 30% at 25% 70%,rgba(63,124,255,.35),transparent 70%),
+  linear-gradient(180deg,#0B1530 0%,#0A1022 55%,#05070C 100%)}
+.ph.warm{background:
+  radial-gradient(50% 40% at 30% 30%,rgba(140,175,255,.5),transparent 70%),
+  radial-gradient(45% 35% at 80% 75%,rgba(40,90,220,.45),transparent 70%),
+  linear-gradient(170deg,#0D1A3D,#060912)}
+.ph.light{background:
+  radial-gradient(70% 50% at 50% 20%,rgba(160,190,255,.45),transparent 70%),
+  linear-gradient(180deg,#132250,#070B16 80%)}
+.ph::before,.ph.light::before{opacity:1;background:
+  linear-gradient(180deg,transparent 55%,rgba(5,7,12,.85)),
+  radial-gradient(1px 1px at 20% 20%,rgba(255,255,255,.7),transparent),radial-gradient(1px 1px at 60% 12%,rgba(255,255,255,.6),transparent),
+  radial-gradient(1px 1px at 85% 30%,rgba(255,255,255,.5),transparent),radial-gradient(1.5px 1.5px at 40% 40%,rgba(255,255,255,.6),transparent)}
+.ph::after{content:"";position:absolute;left:-5%;right:-5%;bottom:0;height:42%;
+  background:linear-gradient(180deg,transparent,rgba(5,7,12,.9)),
+  conic-gradient(from 200deg at 30% 100%,#0a0f1c,#141d33 20%,#0a0f1c 40%);
+  clip-path:polygon(0 70%,12% 40%,22% 55%,35% 20%,48% 50%,58% 35%,70% 60%,82% 30%,100% 55%,100% 100%,0 100%);opacity:.95}
+.ph .tag{z-index:2;color:#AFC3E8}
+.badge-open{z-index:2}
+/* логотип как у референса: часть белым, часть синим */
+.logo b{display:none}
+.logo i{font-style:normal;color:var(--blue)}
+.logo{font-size:26px;letter-spacing:-.05em}
+/* кнопка-контур со стрелкой */
+.btn-line{border-radius:999px;border-color:rgba(255,255,255,.22)}
+.btn-gold,.btn-ink{border-radius:999px}
+.burger{width:52px;height:52px;border-radius:16px}
+.hero-img{border-radius:32px}
+.hero-panel{border-top-left-radius:32px}
+.sec-head h2{font-weight:700}
 </style>
 </head>
 <body>
 
 <header class="top">
   <div class="wrap">
-    <a href="#home" class="logo"><b>Au</b>AUROCKS</a>
+    <a href="#home" class="logo"><i>AU</i>ROCKS</a>
     <nav class="main" id="nav">
       <a href="#novichkam" class="nb">Новичкам</a>
       <a href="#raspisanie">Расписание</a>
@@ -526,7 +579,7 @@ footer .legal{color:#5D6876}
 </header>
 
 <div class="mob" id="mob">
-  <div class="row"><span class="logo" style="color:#fff"><b>Au</b>AUROCKS</span><button class="burger" style="display:grid;background:var(--paper);color:var(--ink)" id="mobClose">✕</button></div>
+  <div class="row"><span class="logo" style="color:#fff"><i>AU</i>ROCKS</span><button class="burger" style="display:grid;background:var(--paper);color:var(--ink)" id="mobClose">✕</button></div>
   <a class="m" href="#novichkam" style="color:var(--gold)">Новичкам</a>
   <a class="m" href="#raspisanie">Расписание</a>
   <a class="m" href="#ceny">Цены и абонементы</a>
@@ -706,7 +759,7 @@ footer .legal{color:#5D6876}
   <section style="padding-top:0"><div class="wrap">
     <div class="cert">
       <div><span class="eyebrow">Подарок</span><h2 style="margin:14px 0 16px">Подарочные сертификаты</h2><p class="lead" style="margin-bottom:26px">Вводное занятие, разовые визиты или абонемент — в подарок. Сертификат оформляется в личном кабинете или на ресепшене.</p><a href="#kabinet" class="btn btn-ink arrow">Оформить в кабинете</a></div>
-      <div class="cert-card"><span class="logo"><b>Au</b>AUROCKS</span><div><span style="font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase">Подарочный сертификат</span><br><b>Первая трасса</b></div></div>
+      <div class="cert-card"><span class="logo"><i>AU</i>ROCKS</span><div><span style="font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase">Подарочный сертификат</span><br><b>Первая трасса</b></div></div>
     </div>
   </div></section>
 </div>
@@ -829,7 +882,7 @@ footer .legal{color:#5D6876}
 <footer>
   <div class="wrap">
     <div class="g">
-      <div><span class="logo" style="color:#fff"><b>Au</b>AUROCKS</span><p style="margin-top:16px;max-width:300px;font-size:15px">Боулдеринговый скалодром и второй дом для тех, кто любит движение и людей.</p></div>
+      <div><span class="logo" style="color:#fff"><i>AU</i>ROCKS</span><p style="margin-top:16px;max-width:300px;font-size:15px">Боулдеринговый скалодром и второй дом для тех, кто любит движение и людей.</p></div>
       <div><h4>Начать</h4><a href="#novichkam">Новичкам</a><a href="#novichkam" data-kids>Детям</a><a href="#ceny">Цены</a><a href="#raspisanie">Расписание</a></div>
       <div><h4>AUROCKS</h4><a href="#trenery">Тренеры</a><a href="#sobytiya">События</a><a href="#korporativ">Праздники</a><a href="#magazin">Магазин</a></div>
       <div><h4>Связь</h4><a href="#kontakty">Контакты</a><a href="#kabinet">Личный кабинет</a><span style="display:block;padding:4px 0">+7 (812) 000-00-00</span></div>
