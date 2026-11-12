@@ -703,7 +703,7 @@ section{padding:120px 0}
 /* лента дня */
 .daytl{padding-bottom:100px}
 .swipe{font-family:var(--head);font-size:14px;color:var(--muted)}
-.tl{position:relative;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding:0 max(28px,calc((100vw - var(--wrap))/2 + 28px)) 20px;cursor:grab}
+.tl{--tlp:max(28px,calc((100vw - var(--wrap))/2 + 28px));position:relative;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-left:var(--tlp);scrollbar-width:none;padding:0 var(--tlp) 20px;cursor:grab}
 .tl::-webkit-scrollbar{display:none}
 .tl-line{position:sticky;left:0;height:2px;background:var(--line);margin-bottom:-2px;width:100%;top:0}
 .tl-line i{display:block;height:100%;width:0;background:linear-gradient(90deg,#3F7CFF,#B6F36B);box-shadow:0 0 12px #3F7CFF}
@@ -750,7 +750,7 @@ section{padding:120px 0}
   .bx-big{min-height:420px}
   .bx-stat,.bx-coffee{min-height:220px}
   .bx-stat .big-n{font-size:96px}
-  .tl{padding:0 18px 20px}
+  .tl{--tlp:18px}
   .qmark{font-size:150px;height:80px}
   .vals{grid-template-columns:1fr}
 }
