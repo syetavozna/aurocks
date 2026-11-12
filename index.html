@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AUROCKS — скалодром в Петербурге</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&family=Vollkorn:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F1F1F1;
+  --bg-2:#E2DEDA;
+  --paper:#F8F8F7;
+  --ink:#1E1E1E;
+  --ink-2:#3A3A3A;
+  --muted:#5E5E5E;
+  --line:#D8D3CF;
+  --taupe:#C2BAB4;
+  --gold:#8FA382;      /* акцент — шалфей */
+  --gold-d:#1E1E1E;
+  --wood:#A9774A;
+  --metal:#8A8F93;
+  --ok:#3E7A4F;
+  --err:#B5452F;
+  --r:22px;
+  --wrap:1240px;
+  --head:'Inter Tight',system-ui,sans-serif;
+  --body:'Inter Tight',system-ui,sans-serif;
+  --serif:'Vollkorn',Georgia,serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--body);background:var(--bg);color:var(--ink);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:inherit}
+button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 28px}
+h1,h2,h3,h4{font-family:var(--head);font-weight:700;letter-spacing:-.04em;line-height:1}
+h1{font-size:clamp(42px,6.4vw,92px);letter-spacing:-.06em;line-height:.93}
+h2{font-size:clamp(32px,4.4vw,58px);letter-spacing:-.05em;line-height:.98}
+.hl-u{background:linear-gradient(var(--gold),var(--gold)) 0 92%/100% .09em no-repeat;padding-bottom:.04em}
+h3{font-size:clamp(21px,2vw,26px)}
+.eyebrow{font-family:var(--head);font-size:13px;font-weight:500;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);display:inline-flex;align-items:center;gap:10px}
+.lead{font-family:var(--serif);font-size:clamp(18px,1.6vw,22px);line-height:1.4;color:var(--ink-2);max-width:620px}
+.muted{color:var(--muted)}
+section{padding:96px 0}
+.sec-head{display:flex;justify-content:space-between;align-items:end;gap:24px;margin-bottom:44px;flex-wrap:wrap}
+.sec-head h2{max-width:760px;margin-top:14px}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:54px;padding:0 26px;border-radius:999px;font-family:var(--head);font-weight:700;font-size:16px;text-decoration:none;transition:.2s;white-space:nowrap}
+.btn-gold{background:var(--ink);color:var(--bg)}
+.btn-gold:hover{background:#000;transform:translateY(-1px)}
+.btn-ink{background:var(--ink);color:var(--paper)}
+.mob .btn-gold,.form-box .btn-gold,.plan.best .btn-gold{background:var(--gold);color:var(--ink)}
+.mob .btn-gold:hover,.form-box .btn-gold:hover,.plan.best .btn-gold:hover{background:#A3B596}
+.form-box .btn-gold.arrow::after{background:var(--ink);color:var(--gold)}
+.btn-ink:hover{background:#000}
+.btn-line{border:1.5px solid var(--ink);color:var(--ink)}
+.btn-line:hover{background:var(--ink);color:var(--paper)}
+.btn-sm{height:42px;padding:0 18px;font-size:14px}
+.arrow{padding-right:7px}
+.arrow::after{content:"→";display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:var(--bg);color:var(--ink);margin-left:6px;font-size:17px}
+.btn-line.arrow::after{background:var(--ink);color:var(--bg)}
+.btn-line.arrow:hover::after{background:var(--bg);color:var(--ink)}
+.btn-sm.arrow::after{width:30px;height:30px;font-size:14px}
+
+/* header */
+header.top{position:sticky;top:0;z-index:50;background:rgba(241,241,241,.9);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;height:76px;gap:28px}
+.logo{font-family:var(--head);font-weight:800;font-size:24px;letter-spacing:-.03em;text-decoration:none;display:flex;align-items:center;gap:10px}
+.logo b{display:inline-grid;place-items:center;width:34px;height:34px;border-radius:50%;border:2.5px solid currentColor;font-size:13px;letter-spacing:-.02em}
+nav.main{display:flex;gap:4px;flex:1;justify-content:center}
+nav.main a{text-decoration:none;font-weight:600;font-size:15px;padding:8px 12px;border-radius:999px;color:var(--ink-2)}
+nav.main a:hover,nav.main a.on{background:var(--bg-2);color:var(--ink)}
+nav.main a.nb{box-shadow:inset 0 -2px 0 var(--gold);border-radius:0}
+.top-actions{display:flex;gap:10px;align-items:center}
+.lk{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:15px;text-decoration:none;padding:8px 12px;border-radius:999px}
+.lk:hover{background:var(--bg-2)}
+.lk svg{width:20px;height:20px}
+.burger{display:none;width:44px;height:44px;border-radius:50%;background:var(--ink);color:var(--paper);place-items:center}
+.mob{position:fixed;inset:0;z-index:60;background:var(--ink);color:var(--paper);padding:22px 24px 32px;display:none;flex-direction:column;overflow:auto}
+.mob.open{display:flex}
+.mob .row{display:flex;justify-content:space-between;align-items:center;margin-bottom:28px}
+.mob a.m{display:block;font-family:var(--head);font-size:30px;font-weight:600;text-decoration:none;padding:9px 0;border-bottom:1px solid #333}
+.mob .btns{margin-top:auto;display:grid;gap:10px;padding-top:28px}
+.mob .btn-line{border-color:var(--paper);color:var(--paper)}
+
+/* photo placeholders */
+.ph{position:relative;border-radius:var(--r);overflow:hidden;background:
+  radial-gradient(90% 70% at 75% 15%,rgba(190,205,175,.3),transparent 60%),
+  linear-gradient(160deg,#5b5652,#2a2826);color:#ECE8E4;min-height:200px}
+.ph::before{content:"";position:absolute;inset:0;background-image:
+  radial-gradient(circle at 18% 32%,#a7b89a 0 5px,transparent 6px),
+  radial-gradient(circle at 42% 58%,#8a8f93 0 6px,transparent 7px),
+  radial-gradient(circle at 64% 28%,#a9774a 0 7px,transparent 8px),
+  radial-gradient(circle at 78% 66%,#a7b89a 0 5px,transparent 6px),
+  radial-gradient(circle at 30% 80%,#e7e2da 0 4px,transparent 5px),
+  radial-gradient(circle at 88% 20%,#e7e2da 0 4px,transparent 5px);opacity:.55}
+.ph.warm{background:radial-gradient(110% 80% at 80% 0%,rgba(225,232,215,.55),transparent 60%),linear-gradient(160deg,#C2BAB4,#7e746c)}
+.ph.light{background:radial-gradient(100% 80% at 30% 20%,#fff,transparent 70%),linear-gradient(150deg,#e2deda,#c2bab4);color:var(--ink)}
+.ph.light::before{opacity:.5}
+.ph .tag{position:absolute;left:14px;bottom:12px;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;opacity:.8}
+
+/* hero */
+.hero{padding:56px 0 40px}
+.hero-wrap{position:relative}
+.hero-img{min-height:640px;border-radius:28px}
+.hero-panel{position:absolute;right:0;bottom:0;width:min(640px,58%);background:var(--bg);border-top-left-radius:28px;padding:40px 0 8px 44px}
+.hero-panel::before,.hero-panel::after{content:"";position:absolute;width:28px;height:28px;background:radial-gradient(circle at 0 0,transparent 27px,var(--bg) 28px)}
+.hero-panel::before{right:0;top:-28px}
+.hero-panel::after{left:-28px;bottom:0}
+.hero h1 span{background:linear-gradient(var(--gold),var(--gold)) 0 94%/100% .07em no-repeat}
+.hero .lead{margin:22px 0 30px}
+.hero-ctas{display:flex;gap:12px;flex-wrap:wrap}
+.hero-facts{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:56px}
+.hero-facts div{border-top:1px solid var(--line);padding-top:16px;display:flex;gap:18px;align-items:flex-start}
+.hero-facts b{font-family:var(--head);font-size:clamp(56px,7vw,96px);line-height:.85;letter-spacing:-.07em;flex:none}
+.hero-facts span{font-family:var(--serif);font-size:16px;color:var(--ink-2);padding-top:6px}
+.hero-visual{display:grid;grid-template-rows:1.4fr 1fr;gap:14px;min-height:560px}
+.hero-visual .duo{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.badge-open{position:absolute;top:18px;left:18px;background:var(--gold);color:var(--ink);font-family:var(--head);font-weight:700;font-size:14px;padding:10px 14px;border-radius:999px}
+
+/* marquee */
+.strip{background:var(--bg-2);color:var(--ink);overflow:hidden;padding:18px 0;font-family:var(--head);font-size:22px;font-weight:600;white-space:nowrap}
+.strip .t{display:inline-block;animation:run 38s linear infinite}
+.strip i{color:var(--ink);opacity:.35;font-style:normal;margin:0 22px}
+@keyframes run{to{transform:translateX(-50%)}}
+
+/* path for beginners */
+.path{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;counter-reset:s}
+.step{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:26px 24px 28px;position:relative;counter-increment:s}
+.step::before{content:"0" counter(s);font-family:var(--head);font-weight:700;font-size:15px;color:var(--gold-d)}
+.step h3{margin:28px 0 10px;font-size:22px}
+.step p{font-size:15px;color:var(--ink-2)}
+.step.hl{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.step.hl p{color:#c9c4bf}
+.step.hl::before{color:var(--gold)}
+
+/* audience tiles */
+.aud{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.tile{border-radius:var(--r);overflow:hidden;background:var(--paper);border:1px solid var(--line);display:flex;flex-direction:column;text-decoration:none;transition:.25s}
+.tile:hover{transform:translateY(-4px);box-shadow:0 18px 40px -22px rgba(0,0,0,.35)}
+.tile .ph{border-radius:0;min-height:230px}
+.tile .in{padding:22px 24px 26px;display:flex;flex-direction:column;gap:10px;flex:1}
+.tile .in p{font-size:15px;color:var(--ink-2);flex:1}
+.tile .go{font-family:var(--head);font-weight:700;color:var(--ink);text-decoration:underline;text-decoration-color:var(--gold);text-decoration-thickness:2px;text-underline-offset:4px}
+
+/* day in aurocks */
+.day{background:var(--bg-2);border-radius:32px;margin:0 16px}
+.day-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.moment{background:var(--paper);border-radius:var(--r);overflow:hidden}
+.moment .ph{border-radius:0;min-height:170px}
+.moment .in{padding:16px 18px 20px}
+.moment time{font-family:var(--head);font-weight:700;font-size:20px}
+.moment p{font-size:14px;color:var(--ink-2);margin-top:4px}
+
+/* quote */
+.quote{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:center}
+.quote blockquote{font-family:var(--head);font-size:clamp(26px,3vw,40px);font-weight:600;line-height:1.18;letter-spacing:-.02em}
+.quote blockquote em{font-style:normal;background:linear-gradient(var(--gold),var(--gold)) 0 92%/100% .08em no-repeat}
+.values{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.values div{background:var(--paper);padding:22px}
+.values b{font-family:var(--head);font-size:19px;display:block;margin-bottom:6px}
+.values span{font-size:14px;color:var(--ink-2)}
+
+/* cards (templated) */
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:14px}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column}
+.card .ph{border-radius:0;min-height:0;aspect-ratio:4/3}
+.card .in{padding:20px 22px 22px;display:flex;flex-direction:column;gap:8px;flex:1}
+.card h3{font-size:20px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.card p{font-size:15px;color:var(--ink-2);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.card .meta{display:flex;gap:8px;flex-wrap:wrap;font-size:13px}
+.chip{display:inline-block;padding:4px 10px;border-radius:999px;background:var(--bg-2);font-weight:600;font-size:12px;letter-spacing:.02em}
+.chip.gold{background:var(--gold);color:var(--ink)}
+.chip.ink{background:var(--ink);color:var(--paper)}
+.card .foot{margin-top:auto;padding-top:12px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.price{font-family:var(--head);font-weight:700;font-size:22px}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}
+.filters button{padding:9px 16px;border-radius:999px;border:1.5px solid var(--line);font-weight:600;font-size:14px;background:var(--paper)}
+.filters button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+
+/* prices */
+.price-tabs{display:inline-flex;background:var(--bg-2);padding:5px;border-radius:999px;margin-bottom:28px;flex-wrap:wrap}
+.price-tabs button{padding:10px 20px;border-radius:999px;font-weight:600;font-size:15px}
+.price-tabs button.on{background:var(--paper);box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.plan{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:28px;display:flex;flex-direction:column;gap:14px;position:relative}
+.plan.best{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.plan.best .muted{color:#a9a4a0}
+.plan .p{font-family:var(--head);font-size:48px;font-weight:700;letter-spacing:-.06em;line-height:1}
+.plan .p small{font-size:16px;font-weight:500;color:var(--muted)}
+.plan ul{list-style:none;display:grid;gap:8px;font-size:15px;margin-bottom:8px}
+.plan li::before{content:"✓";color:var(--gold);font-weight:700;margin-right:10px}
+.plan .btn{margin-top:auto}
+.plan .flag{position:absolute;top:-12px;left:28px}
+.ptable{width:100%;border-collapse:collapse;background:var(--paper);border-radius:var(--r);overflow:hidden;border:1px solid var(--line)}
+.ptable th,.ptable td{text-align:left;padding:16px 20px;border-bottom:1px solid var(--line);font-size:15px}
+.ptable th{font-family:var(--head);font-weight:600;background:var(--bg-2);font-size:14px}
+.ptable td:last-child,.ptable th:last-child{text-align:right;font-family:var(--head);font-weight:700;white-space:nowrap}
+.note{font-size:13px;color:var(--muted);margin-top:14px}
+
+/* widget wrapper (1C) */
+.widget{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.widget .bar{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px 22px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.widget .bar b{font-family:var(--head)}
+.widget .src{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:8px}
+.widget .src::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--ok)}
+.sched{display:grid;grid-template-columns:repeat(7,1fr);gap:1px;background:var(--line)}
+.sched .d{background:var(--paper);padding:14px 10px;min-height:220px}
+.sched .d h4{font-size:14px;margin-bottom:10px;font-family:var(--head)}
+.sched .d h4 span{color:var(--muted);font-weight:500}
+.slot{border-radius:10px;padding:9px 10px;margin-bottom:8px;font-size:13px;line-height:1.3;cursor:pointer;border:1px solid transparent;transition:.15s}
+.slot:hover{border-color:var(--ink)}
+.slot b{display:block;font-family:var(--head);font-size:13px}
+.slot.intro{background:#F6E6C8}
+.slot.kids{background:#E2E7DF}
+.slot.grp{background:var(--bg-2)}
+.slot.ev{background:var(--ink);color:var(--paper)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:13px;padding:14px 22px;border-top:1px solid var(--line)}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:4px;margin-right:6px;vertical-align:-1px}
+
+/* page hero */
+.phero{padding:64px 0 40px;border-bottom:1px solid var(--line)}
+.phero h1{font-size:clamp(40px,6vw,84px);margin:16px 0 22px;max-width:980px;letter-spacing:-.06em;line-height:.95}
+.crumbs{font-size:14px;color:var(--muted)}
+.crumbs a{text-decoration:none}
+
+/* faq */
+.faq details{border-top:1px solid var(--line);padding:22px 0}
+.faq details:last-child{border-bottom:1px solid var(--line)}
+.faq summary{font-family:var(--head);font-size:21px;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:20px}
+.faq summary::after{content:"+";font-size:28px;line-height:1;color:var(--gold-d);transition:.2s}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq details p{margin-top:12px;color:var(--ink-2);max-width:760px}
+
+/* two-col */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start}
+.list-check{list-style:none;display:grid;gap:14px}
+.list-check li{display:flex;gap:14px;align-items:flex-start}
+.list-check li::before{content:"";flex:none;width:26px;height:26px;border-radius:50%;background:var(--gold) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231C1B19' stroke-width='3'%3E%3Cpath d='M5 12l5 5 9-10'/%3E%3C/svg%3E") center/14px no-repeat;margin-top:1px}
+
+/* forms */
+.form-box{background:var(--ink);color:var(--paper);border-radius:22px;padding:48px;display:grid;grid-template-columns:.9fr 1.1fr;gap:48px}
+.form-box .lead{color:#c9c4bf}
+form.f{display:grid;gap:14px}
+.f .row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.field{display:grid;gap:6px}
+.field label{font-size:13px;font-weight:600;color:#bdb6a9}
+.field input,.field select,.field textarea{height:54px;border-radius:12px;border:1.5px solid #3b3934;background:#26241f;color:var(--paper);padding:0 16px;font:inherit;font-size:16px;outline:none;transition:.15s;width:100%}
+.field textarea{height:110px;padding:14px 16px;resize:vertical}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--gold)}
+.field.bad input,.field.bad select{border-color:var(--err)}
+.field .e{display:none;font-size:13px;color:#F08B74}
+.field.bad .e{display:block}
+.consent{display:flex;gap:12px;align-items:flex-start;font-size:13px;color:#bdb6a9;cursor:pointer}
+.consent input{width:20px;height:20px;accent-color:var(--gold);flex:none;margin-top:1px}
+.consent.bad{color:#F08B74}
+.consent a{color:var(--gold)}
+.ok-state{display:none;text-align:left;padding:10px 0}
+.ok-state .ic{width:64px;height:64px;border-radius:50%;background:var(--gold);display:grid;place-items:center;margin-bottom:20px}
+.ok-state h3{font-size:30px;margin-bottom:10px}
+.f.light .field label{color:var(--ink-2)}
+.f.light .field input,.f.light .field select,.f.light .field textarea{background:var(--paper);border-color:var(--line);color:var(--ink)}
+.f.light .consent{color:var(--ink-2)}
+
+/* modal */
+.modal{position:fixed;inset:0;z-index:70;background:rgba(20,19,17,.6);display:none;align-items:center;justify-content:center;padding:20px}
+.modal.open{display:flex}
+.modal .box{background:var(--paper);border-radius:22px;padding:36px;max-width:520px;width:100%;max-height:92vh;overflow:auto;position:relative}
+.modal .x{position:absolute;top:14px;right:14px;width:40px;height:40px;border-radius:50%;background:var(--bg-2);font-size:20px}
+
+/* trainers */
+.trainer .ph{aspect-ratio:3/4}
+
+/* contacts / map */
+.map{border-radius:var(--r);min-height:420px;background:
+  linear-gradient(90deg,rgba(0,0,0,.05) 1px,transparent 1px) 0 0/40px 40px,
+  linear-gradient(rgba(0,0,0,.05) 1px,transparent 1px) 0 0/40px 40px,#DDD7CC;position:relative;overflow:hidden}
+.map::before{content:"";position:absolute;left:-10%;top:58%;width:130%;height:46px;background:#cfc7b9;transform:rotate(-8deg)}
+.map::after{content:"";position:absolute;left:40%;top:-10%;width:30px;height:130%;background:#cfc7b9;transform:rotate(12deg)}
+.pin{position:absolute;left:47%;top:44%;z-index:2;background:var(--ink);color:var(--paper);padding:10px 14px;border-radius:12px;font-family:var(--head);font-weight:700;font-size:14px}
+.pin::after{content:"";position:absolute;left:18px;bottom:-8px;border:8px solid transparent;border-top-color:var(--ink);border-bottom:0}
+.info-list{display:grid;gap:0}
+.info-list div{display:grid;grid-template-columns:150px 1fr;gap:16px;padding:18px 0;border-bottom:1px solid var(--line)}
+.info-list b{font-family:var(--head);font-weight:600;color:var(--muted);font-size:14px}
+
+/* cert */
+.cert{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;background:var(--paper);border:1px solid var(--line);border-radius:22px;padding:40px}
+.cert-card{aspect-ratio:1.6;border-radius:22px;background:linear-gradient(135deg,#8FA382,#CBD5C0 45%,#6F8463);padding:26px;display:flex;flex-direction:column;justify-content:space-between;color:var(--ink);box-shadow:0 30px 50px -28px rgba(60,80,50,.5)}
+.cert-card b{font-family:var(--head);font-size:26px;letter-spacing:-.02em}
+
+/* footer */
+footer{background:var(--ink);color:#cfc8bc;padding:72px 0 36px;margin-top:40px}
+footer .g{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:32px}
+footer h4{color:var(--paper);font-size:15px;margin-bottom:14px}
+footer a{display:block;text-decoration:none;padding:4px 0;font-size:15px}
+footer a:hover{color:var(--gold)}
+footer .big{font-family:var(--head);font-size:clamp(56px,11vw,170px);font-weight:700;color:var(--paper);letter-spacing:-.08em;line-height:.9;margin-top:56px}
+footer .big span{color:var(--gold)}
+footer .legal{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:13px;margin-top:28px;color:#8b857a}
+
+/* sticky mobile CTA */
+.mcta{display:none;position:fixed;left:12px;right:12px;bottom:12px;z-index:40}
+.mcta .btn{width:100%;box-shadow:0 12px 30px -10px rgba(0,0,0,.45)}
+
+.view{display:none}
+.view.on{display:block;animation:fade .35s ease}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(120px);background:var(--ink);color:var(--paper);padding:14px 22px;border-radius:999px;font-weight:600;z-index:80;transition:.3s}
+.toast.show{transform:translateX(-50%) translateY(0)}
+
+@media (max-width:1100px){
+  nav.main,.top-actions .lk span,.top-actions .btn-gold{display:none}
+  .burger{display:grid}
+  .top-actions{margin-left:auto}
+  .path{grid-template-columns:1fr 1fr}
+  .day-grid{grid-template-columns:repeat(3,1fr)}
+  .sched{grid-template-columns:repeat(4,1fr)}
+}
+@media (max-width:820px){
+  body{font-size:16px}
+  section{padding:64px 0}
+  .wrap{padding:0 18px}
+  .quote,.two,.form-box,.cert{grid-template-columns:1fr}
+  .hero-img{min-height:380px}
+  .hero-panel{position:relative;width:100%;margin-top:-60px;padding:30px 20px 0;border-top-right-radius:28px}
+  .hero-panel::before,.hero-panel::after{display:none}
+  .hero-facts{grid-template-columns:1fr;gap:0}
+  .hero-facts div{padding:14px 0}
+  .day{margin:0}
+  .aud,.plans{grid-template-columns:1fr}
+  .day-grid{grid-template-columns:1fr 1fr}
+  .form-box{padding:30px 22px;gap:28px}
+  .f .row2{grid-template-columns:1fr}
+  footer .g{grid-template-columns:1fr 1fr}
+  .sched{grid-template-columns:1fr}
+  .sched .d{min-height:0}
+  .mcta{display:block}
+  footer{padding-bottom:96px}
+  .info-list div{grid-template-columns:1fr;gap:4px}
+  .ptable th,.ptable td{padding:13px 14px}
+  .cert{padding:24px}
+}
+@media (max-width:480px){
+  .path,.day-grid{grid-template-columns:1fr}
+  .hero-ctas .btn{width:100%}
+  .top .wrap{height:64px}
+  .modal .box{padding:26px 20px}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a href="#home" class="logo"><b>Au</b>AUROCKS</a>
+    <nav class="main" id="nav">
+      <a href="#novichkam" class="nb">Новичкам</a>
+      <a href="#raspisanie">Расписание</a>
+      <a href="#ceny">Цены</a>
+      <a href="#trenery">Тренеры</a>
+      <a href="#sobytiya">События</a>
+      <a href="#korporativ">Праздники</a>
+      <a href="#magazin">Магазин</a>
+      <a href="#kontakty">Контакты</a>
+    </nav>
+    <div class="top-actions">
+      <a href="#kabinet" class="lk" title="Личный кабинет">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg><span>Кабинет</span></a>
+      <a href="#" class="btn btn-gold btn-sm" data-open="lead">Записаться</a>
+      <button class="burger" id="burger" aria-label="Меню">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M3 7h18M3 17h18"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="mob" id="mob">
+  <div class="row"><span class="logo" style="color:var(--paper)"><b>Au</b>AUROCKS</span><button class="burger" style="display:grid;background:var(--paper);color:var(--ink)" id="mobClose">✕</button></div>
+  <a class="m" href="#novichkam" style="color:var(--gold)">Новичкам</a>
+  <a class="m" href="#raspisanie">Расписание</a>
+  <a class="m" href="#ceny">Цены и абонементы</a>
+  <a class="m" href="#trenery">Тренеры</a>
+  <a class="m" href="#sobytiya">Акции и события</a>
+  <a class="m" href="#korporativ">Праздники и корпоративы</a>
+  <a class="m" href="#magazin">Магазин</a>
+  <a class="m" href="#kontakty">Контакты</a>
+  <div class="btns">
+    <a href="#" class="btn btn-gold" data-open="lead">Записаться на первое занятие</a>
+    <a href="#kabinet" class="btn btn-line">Личный кабинет</a>
+  </div>
+</div>
+
+<main>
+<!-- ================= HOME ================= -->
+<div class="view" id="v-home">
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-wrap">
+        <div class="ph hero-img"><span class="badge-open">Открытие 15.01.2027</span><span class="tag" style="left:22px;bottom:auto;top:66px">Фото: люди на трассе, мягкий свет</span></div>
+        <div class="hero-panel">
+          <span class="eyebrow">Боулдеринг · Петербург</span>
+          <h1 style="margin-top:16px">Место, куда хочется <span>возвращаться</span>.</h1>
+          <p class="lead">Скалодром, кофейня и сообщество под одной крышей. Тренер всё покажет, снаряжение дадим, опыт не нужен.</p>
+          <div class="hero-ctas">
+            <a href="#" class="btn btn-gold arrow" data-open="lead">Записаться на вводное</a>
+            <a href="#novichkam" class="btn btn-line">Как всё устроено</a>
+          </div>
+        </div>
+      </div>
+      <div class="hero-facts">
+        <div><b>90</b><span>минут длится первое занятие с тренером</span></div>
+        <div><b>6+</b><span>лет — возраст для детских групп</span></div>
+        <div><b>0</b><span>опыта и подготовки нужно, чтобы начать</span></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="strip"><div class="t" id="strip"></div></div>
+
+  <section>
+    <div class="wrap">
+      <div class="sec-head">
+        <div><span class="eyebrow">Первый раз</span><h2>Четыре шага от «хочу попробовать» до <span class="hl-u">первой трассы</span></h2></div>
+        <a href="#novichkam" class="btn btn-line arrow">Подробно для новичков</a>
+      </div>
+      <div class="path">
+        <div class="step"><h3>Оставьте заявку</h3><p>Имя и телефон — администратор перезвонит и подберёт удобное время.</p></div>
+        <div class="step"><h3>Приходите налегке</h3><p>Спортивная одежда — ваша. Скальные туфли и магнезию дадим.</p></div>
+        <div class="step hl"><h3>Вводное с тренером</h3><p>Техника безопасности, как падать, первые трассы. 90 минут без спешки.</p></div>
+        <div class="step"><h3>Оставайтесь</h3><p>Кофе, знакомства, выбор абонемента — без давления.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head"><div><span class="eyebrow">Для кого</span><h2>Выберите, с чего начать</h2></div></div>
+      <div class="aud">
+        <a href="#novichkam" class="tile"><div class="ph"><span class="tag">Взрослые</span></div><div class="in"><h3>Взрослым</h3><p>Вводное занятие, группы для начинающих и свободное лазание в своём темпе.</p><span class="go">Начать →</span></div></a>
+        <a href="#novichkam" class="tile" data-kids><div class="ph light"><span class="tag">Дети</span></div><div class="in"><h3>Детям и родителям</h3><p>Группы с 6 лет: координация, уверенность, друзья. Пока ребёнок лазает — у вас кофе.</p><span class="go">О детских группах →</span></div></a>
+        <a href="#korporativ" class="tile"><div class="ph warm"><span class="tag">Команды</span></div><div class="in"><h3>Праздники и команды</h3><p>Дни рождения, тимбилдинги, закрытые вечера с инструктором и кофейней.</p><span class="go">Узнать формат →</span></div></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="day">
+    <div class="wrap">
+      <div class="sec-head"><div><span class="eyebrow">Один день в AUROCKS</span><h2>Не на полтора часа, а <span class="hl-u">на полдня</span></h2></div><p class="lead" style="max-width:420px">Работать, тренироваться, есть, общаться и планировать выезды на скалы — в одном месте.</p></div>
+      <div class="day-grid">
+        <div class="moment"><div class="ph warm"><span class="tag">Кофе</span></div><div class="in"><time>09:00</time><p>Капучино и ноутбук у окна</p></div></div>
+        <div class="moment"><div class="ph"><span class="tag">Трассы</span></div><div class="in"><time>12:30</time><p>Обеденная сессия на новой накрутке</p></div></div>
+        <div class="moment"><div class="ph light"><span class="tag">Дети</span></div><div class="in"><time>16:00</time><p>Детская группа после школы</p></div></div>
+        <div class="moment"><div class="ph"><span class="tag">Тренировка</span></div><div class="in"><time>19:00</time><p>Группа с тренером и разбор проектов</p></div></div>
+        <div class="moment"><div class="ph warm"><span class="tag">Сообщество</span></div><div class="in"><time>21:30</time><p>Лекция о выездах, ужин, знакомства</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap quote">
+      <blockquote>«У меня был тяжёлый день, но после тренировки и общения <em>стало легче</em>».</blockquote>
+      <div class="values">
+        <div><b>Принятие</b><span>Не нужно соответствовать образу скалолаза.</span></div>
+        <div><b>Поддержка</b><span>Рядом всегда подскажут и порадуются за вас.</span></div>
+        <div><b>Радость</b><span>Уходите в лучшем настроении, даже если не пролезли.</span></div>
+        <div><b>Забота</b><span>Свет, чистота, музыка, удобные раздевалки.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head"><div><span class="eyebrow">Цены</span><h2>Начните с разового визита</h2></div><a href="#ceny" class="btn btn-line arrow">Все цены</a></div>
+      <div class="plans" id="homePlans"></div>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head"><div><span class="eyebrow">Что происходит</span><h2>Акции и события</h2></div><a href="#sobytiya" class="btn btn-line arrow">Все события</a></div>
+      <div class="cards" id="homeEvents"></div>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="wrap" id="leadHome"></div>
+  </section>
+</div>
+
+<!-- ================= NOVICHKAM ================= -->
+<div class="view" id="v-novichkam">
+  <div class="phero"><div class="wrap">
+    <div class="crumbs"><a href="#home">Главная</a> / Новичкам</div>
+    <h1>Первый раз на скалодроме? Это <span class="hl-u">проще</span>, чем кажется</h1>
+    <p class="lead">Боулдеринг — лазание по невысоким стенам без страховки над мягкими матами. Ни верёвок, ни сложного снаряжения. Нужны только желание и удобная одежда.</p>
+    <div class="hero-ctas" style="margin-top:28px"><a href="#" class="btn btn-gold arrow" data-open="lead">Записаться на вводное</a><a href="#ceny" class="btn btn-line">Сколько стоит</a></div>
+  </div></div>
+
+  <section><div class="wrap two">
+    <div><span class="eyebrow">Вводное занятие</span><h2 style="margin:14px 0 24px">Что будет на первом занятии</h2>
+      <ul class="list-check">
+        <li><div><b>Знакомство с залом</b><br><span class="muted">Где раздевалки, кофейня, зоны для новичков.</span></div></li>
+        <li><div><b>Безопасность</b><br><span class="muted">Как правильно падать и спрыгивать, правила зала.</span></div></li>
+        <li><div><b>Техника</b><br><span class="muted">Как ставить ноги, держаться и экономить силы.</span></div></li>
+        <li><div><b>Первые трассы</b><br><span class="muted">Пролезете несколько трасс сами — с подсказками тренера.</span></div></li>
+        <li><div><b>Что дальше</b><br><span class="muted">Тренер подскажет, какой формат вам подойдёт.</span></div></li>
+      </ul>
+    </div>
+    <div class="ph" style="min-height:520px"><span class="tag">Фото: тренер с новичком</span></div>
+  </div></section>
+
+  <section style="padding-top:0"><div class="wrap">
+    <div class="sec-head"><div><span class="eyebrow">Что взять</span><h2>Собраться — пять минут</h2></div></div>
+    <div class="path">
+      <div class="step"><h3>Одежда</h3><p>Свободная, не стесняющая движений. Лучше без молний и крупных пуговиц.</p></div>
+      <div class="step"><h3>Скальники</h3><p>Выдадим бесплатно на вводном. Своя обувь не нужна.</p></div>
+      <div class="step"><h3>Документ</h3><p>Для подписи согласия с правилами при первом визите.</p></div>
+      <div class="step hl"><h3>Настроение</h3><p>Остальное — на нас. Душ, полотенца и кофе на месте.</p></div>
+    </div>
+  </div></section>
+
+  <section class="day" id="deti"><div class="wrap two">
+    <div class="ph light" style="min-height:440px"><span class="tag">Фото: детская группа</span></div>
+    <div><span class="eyebrow">Детям</span><h2 style="margin:14px 0 20px">Детские группы с 6 лет</h2>
+      <p class="lead" style="margin-bottom:24px">Скалолазание развивает координацию, силу и уверенность в себе. Занятия в игровой форме, группы по возрасту, до 8 детей на тренера.</p>
+      <ul class="list-check" style="margin-bottom:30px">
+        <li>Пробное занятие для ребёнка</li><li>Группы 6–9, 10–13, 14–17 лет</li><li>Родители ждут в кофейне с видом на зал</li>
+      </ul>
+      <a href="#" class="btn btn-ink arrow" data-open="lead" data-kind="Ребёнок">Записать ребёнка</a>
+    </div>
+  </div></section>
+
+  <section><div class="wrap two">
+    <div><span class="eyebrow">Вопросы</span><h2 style="margin-top:14px">Частые вопросы новичков</h2></div>
+    <div class="faq" id="faq"></div>
+  </div></section>
+
+  <section style="padding-top:0"><div class="wrap" id="leadNov"></div></section>
+</div>
+
+<!-- ================= CENY ================= -->
+<div class="view" id="v-ceny">
+  <div class="phero"><div class="wrap">
+    <div class="crumbs"><a href="#home">Главная</a> / Цены и абонементы</div>
+    <h1>Цены и абонементы</h1>
+    <p class="lead">Начните с разового визита или вводного — абонемент можно выбрать потом. Покупка и оплата — онлайн через личный кабинет.</p>
+  </div></div>
+  <section><div class="wrap">
+    <div class="price-tabs" id="priceTabs"></div>
+    <div class="plans" id="plans"></div>
+    <h3 style="margin:56px 0 18px">Все позиции</h3>
+    <table class="ptable" id="ptable"></table>
+    <p class="note">Цены — плейсхолдеры для макета, финальные значения предоставит клиент. Покупка проходит в виджете 1С:Фитнес клуб.</p>
+  </div></section>
+  <section style="padding-top:0"><div class="wrap">
+    <div class="cert">
+      <div><span class="eyebrow">Подарок</span><h2 style="margin:14px 0 16px">Подарочные сертификаты</h2><p class="lead" style="margin-bottom:26px">Вводное занятие, разовые визиты или абонемент — в подарок. Сертификат оформляется в личном кабинете или на ресепшене.</p><a href="#kabinet" class="btn btn-ink arrow">Оформить в кабинете</a></div>
+      <div class="cert-card"><span class="logo"><b style="background:var(--ink);color:var(--gold)">Au</b>AUROCKS</span><div><span style="font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase">Подарочный сертификат</span><br><b>Первая трасса</b></div></div>
+    </div>
+  </div></section>
+</div>
+
+<!-- ================= RASPISANIE ================= -->
+<div class="view" id="v-raspisanie">
+  <div class="phero"><div class="wrap">
+    <div class="crumbs"><a href="#home">Главная</a> / Расписание и запись</div>
+    <h1>Расписание и запись</h1>
+    <p class="lead">Выберите занятие и запишитесь онлайн. Свободное лазание — в любое время работы зала, без записи.</p>
+  </div></div>
+  <section><div class="wrap">
+    <div class="filters" id="schedFilter"></div>
+    <div class="widget">
+      <div class="bar"><b id="weekLbl">Неделя 18–24 января</b><span class="src">Данные из 1С:Фитнес клуб · виджет</span></div>
+      <div class="sched" id="sched"></div>
+      <div class="legend">
+        <span><i style="background:#F6E6C8"></i>Вводное</span><span><i style="background:var(--bg-2)"></i>Группа</span><span><i style="background:#E2E7DF"></i>Дети</span><span><i style="background:var(--ink)"></i>Событие</span>
+      </div>
+    </div>
+    <p class="note">Это обёртка: внутри сетки будет встроен виджет расписания 1С. Клик по слоту открывает запись.</p>
+  </div></section>
+</div>
+
+<!-- ================= TRENERY ================= -->
+<div class="view" id="v-trenery">
+  <div class="phero"><div class="wrap">
+    <div class="crumbs"><a href="#home">Главная</a> / Тренеры</div>
+    <h1><span class="hl-u">Люди</span> — главное в AUROCKS</h1>
+    <p class="lead">Тренеры, которые чувствуют настроение и умеют поддержать. С ними первая трасса не страшная.</p>
+  </div></div>
+  <section><div class="wrap"><div class="cards" id="trainers"></div></div></section>
+</div>
+
+<!-- ================= SOBYTIYA ================= -->
+<div class="view" id="v-sobytiya">
+  <div class="phero"><div class="wrap">
+    <div class="crumbs"><a href="#home">Главная</a> / Акции и события</div>
+    <h1>Акции, события и новости</h1>
+    <p class="lead">Новые накрутки, соревнования, лекции, выезды на скалы и вечеринки сообщества.</p>
+  </div></div>
+  <section><div class="wrap">
+    <div class="filters" id="evFilter"></div>
+    <div class="cards" id="events"></div>
+  </div></section>
+</div>
+
+<!-- ================= KORPORATIV ================= -->
+<div class="view" id="v-korporativ">
+  <div class="phero"><div class="wrap">
+    <div class="crumbs"><a href="#home">Главная</a> / Праздники и корпоративы</div>
+    <h1>Праздник, который запомнится движением</h1>
+    <p class="lead">Детские дни рождения, тимбилдинги и закрытые вечера. Инструкторы, снаряжение и кофейня — всё организуем.</p>
+  </div></div>
+  <section><div class="wrap">
+    <div class="plans">
+      <div class="plan"><span class="chip">Дети 6–14</span><h3>День рождения</h3><p class="muted">2 часа: игры на стене, мини-соревнование, зона для торта.</p><div class="p">от 18 000 <small>₽</small></div><ul><li>До 12 детей</li><li>2 инструктора</li><li>Снаряжение</li></ul><a href="#" class="btn btn-line" data-scroll="leadKorp" data-kind="День рождения">Обсудить</a></div>
+      <div class="plan best"><span class="chip gold flag">Популярно</span><span class="chip ink" style="background:#333">Команды</span><h3>Тимбилдинг</h3><p class="muted">Вводное, командные задания на трассах, кофе-брейк.</p><div class="p">от 45 000 <small>₽</small></div><ul><li>До 30 человек</li><li>Ведущий и инструкторы</li><li>Кейтеринг по запросу</li></ul><a href="#" class="btn btn-gold" data-scroll="leadKorp" data-kind="Корпоратив">Обсудить</a></div>
+      <div class="plan"><span class="chip">Под ключ</span><h3>Закрытый вечер</h3><p class="muted">Зал целиком под ваше событие: музыка, свет, бар.</p><div class="p">по запросу</div><ul><li>До 80 гостей</li><li>Своя программа</li><li>Фото и видео</li></ul><a href="#" class="btn btn-line" data-scroll="leadKorp" data-kind="Закрытый вечер">Обсудить</a></div>
+    </div>
+    <p class="note">Цены — плейсхолдеры.</p>
+  </div></section>
+  <section style="padding-top:0"><div class="wrap" id="leadKorp"></div></section>
+</div>
+
+<!-- ================= MAGAZIN ================= -->
+<div class="view" id="v-magazin">
+  <div class="phero"><div class="wrap">
+    <div class="crumbs"><a href="#home">Главная</a> / Магазин</div>
+    <h1>Магазин</h1>
+    <p class="lead">Скальники, магнезия и мерч AUROCKS. Оставьте заказ — менеджер свяжется, уточнит размер и наличие. Забрать можно на ресепшене.</p>
+  </div></div>
+  <section><div class="wrap">
+    <div class="filters" id="shopFilter"></div>
+    <div class="cards" id="shop"></div>
+  </div></section>
+</div>
+
+<!-- ================= KONTAKTY ================= -->
+<div class="view" id="v-kontakty">
+  <div class="phero"><div class="wrap">
+    <div class="crumbs"><a href="#home">Главная</a> / Контакты</div>
+    <h1>Как нас найти</h1>
+  </div></div>
+  <section><div class="wrap two">
+    <div class="info-list">
+      <div><b>Адрес</b><span>Санкт-Петербург, адрес уточняется</span></div>
+      <div><b>Часы работы</b><span>Пн–Пт 7:00–23:00<br>Сб–Вс 9:00–22:00</span></div>
+      <div><b>Телефон</b><span>+7 (812) 000-00-00</span></div>
+      <div><b>Почта</b><span>hello@aurocks.ru</span></div>
+      <div><b>Соцсети</b><span>Telegram · VK</span></div>
+      <div><b>Парковка</b><span>Бесплатно для гостей, 20 мест</span></div>
+    </div>
+    <div class="map"><span class="pin">AUROCKS</span></div>
+  </div></section>
+</div>
+
+<!-- ================= KABINET ================= -->
+<div class="view" id="v-kabinet">
+  <div class="phero"><div class="wrap">
+    <div class="crumbs"><a href="#home">Главная</a> / Личный кабинет</div>
+    <h1>Личный кабинет</h1>
+    <p class="lead">Ваши абонементы, записи и покупки.</p>
+  </div></div>
+  <section><div class="wrap" style="max-width:640px">
+    <div class="widget">
+      <div class="bar"><b>Вход</b><span class="src">Виджет 1С:Фитнес клуб</span></div>
+      <div style="padding:28px">
+        <form class="f light" onsubmit="event.preventDefault();toast('Здесь откроется личный кабинет 1С')">
+          <div class="field"><label>Телефон</label><input type="tel" placeholder="+7 (___) ___-__-__"></div>
+          <button class="btn btn-ink" style="width:100%">Получить код</button>
+        </form>
+        <p class="note">Это место для встраиваемого виджета личного кабинета. Стилизуется ограниченно — оформляем обёртку.</p>
+      </div>
+    </div>
+  </div></section>
+</div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="g">
+      <div><span class="logo" style="color:var(--paper)"><b>Au</b>AUROCKS</span><p style="margin-top:16px;max-width:300px;font-size:15px">Боулдеринговый скалодром и второй дом для тех, кто любит движение и людей.</p></div>
+      <div><h4>Начать</h4><a href="#novichkam">Новичкам</a><a href="#novichkam" data-kids>Детям</a><a href="#ceny">Цены</a><a href="#raspisanie">Расписание</a></div>
+      <div><h4>AUROCKS</h4><a href="#trenery">Тренеры</a><a href="#sobytiya">События</a><a href="#korporativ">Праздники</a><a href="#magazin">Магазин</a></div>
+      <div><h4>Связь</h4><a href="#kontakty">Контакты</a><a href="#kabinet">Личный кабинет</a><span style="display:block;padding:4px 0">+7 (812) 000-00-00</span></div>
+    </div>
+    <div class="big">AUROCKS<span>.</span></div>
+    <div class="legal"><span>© 2027 AUROCKS</span><span>Политика обработки персональных данных</span></div>
+  </div>
+</footer>
+
+<div class="mcta"><a href="#" class="btn btn-gold" data-open="lead">Записаться на первое занятие</a></div>
+
+<div class="modal" id="modal"><div class="box"><button class="x" data-close>✕</button><div id="modalBody"></div></div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ====== КОНТЕНТ (меняет маркетолог) ====== */
+const DATA = {
+  plans:{
+    "Разовые":[
+      {t:"Вводное занятие",d:"Первый визит с тренером, 90 минут",p:"1 500",u:"₽",f:["Тренер","Скальники в подарок","Кофе после"],best:true,cta:"lead"},
+      {t:"Разовое посещение",d:"Свободное лазание на весь день",p:"900",u:"₽",f:["Без ограничения по времени","Душ и раздевалки"]},
+      {t:"Прокат",d:"Скальники и магнезия",p:"300",u:"₽",f:["Все размеры","Дезинфекция после каждого"]},
+    ],
+    "Абонементы":[
+      {t:"8 посещений",d:"Действует 2 месяца",p:"6 400",u:"₽",f:["800 ₽ за визит","Заморозка 7 дней"]},
+      {t:"Безлимит месяц",d:"Лазайте сколько хотите",p:"7 900",u:"₽",f:["Все часы работы","Скидка 10% в кофейне","Заморозка 14 дней"],best:true},
+      {t:"Безлимит год",d:"Для тех, кто остаётся",p:"64 000",u:"₽",f:["5 330 ₽ в месяц","Гостевые визиты","Заморозка 60 дней"]},
+    ],
+    "Группы":[
+      {t:"Новички, 8 занятий",d:"Группа до 8 человек",p:"9 600",u:"₽",f:["2 раза в неделю","Программа с нуля"],best:true},
+      {t:"Продолжающие",d:"Техника и сила",p:"10 400",u:"₽",f:["8 занятий","Разбор трасс"]},
+      {t:"Персональная",d:"Один на один с тренером",p:"3 500",u:"₽",f:["60 минут","Свой план"]},
+    ],
+    "Детям":[
+      {t:"Пробное для ребёнка",d:"60 минут с тренером",p:"1 000",u:"₽",f:["С 6 лет","Снаряжение"],best:true,cta:"lead",kind:"Ребёнок"},
+      {t:"Детская группа, месяц",d:"8 занятий",p:"8 800",u:"₽",f:["До 8 детей на тренера","Группы по возрасту"]},
+      {t:"Семейный визит",d:"Взрослый + ребёнок",p:"1 500",u:"₽",f:["Свободное лазание","Прокат включён"]},
+    ]
+  },
+  events:[
+    {cat:"Акции",t:"Открытие: вводное занятие за полцены",d:"Первые две недели после открытия вводное с тренером — 750 ₽.",date:"15–31 января",tag:"−50%"},
+    {cat:"События",t:"Вечеринка в честь открытия",d:"Музыка, первые накрутки, кофе и знакомство с командой.",date:"17 января, 19:00"},
+    {cat:"События",t:"Лекция: как спланировать первый выезд на скалы",d:"Куда ехать из Петербурга, что взять с собой и как найти компанию.",date:"24 января, 20:00"},
+    {cat:"Новости",t:"Новая накрутка в зоне для начинающих",d:"Сеттеры обновили 30 трасс — от самых простых до первых проектов.",date:"20 января"},
+    {cat:"Акции",t:"Приведи друга",d:"Оба получаете разовое посещение в подарок при покупке абонемента.",date:"Постоянно"},
+    {cat:"События",t:"Фестиваль боулдеринга для любителей",d:"Соревнование без давления: трассы на любой уровень и общий финал.",date:"8 февраля"},
+  ],
+  trainers:[
+    {n:"Анна",r:"Старший тренер",d:"8 лет в скалолазании. Ведёт вводные и группы новичков — умеет снять страх перед первой трассой.",tags:["Новички","Взрослые"]},
+    {n:"Максим",r:"Тренер",d:"Мастер спорта, но объясняет просто. Техника, сила и разбор проектов.",tags:["Продолжающие"]},
+    {n:"Ольга",r:"Детский тренер",d:"Педагог по образованию. Превращает занятие в игру, а дети уходят уверенными.",tags:["Дети 6–13"]},
+    {n:"Илья",r:"Тренер и сеттер",d:"Накручивает трассы, которые хочется обсуждать. Организует выезды на скалы.",tags:["Выезды","Сеттинг"]},
+  ],
+  shop:[
+    {cat:"Снаряжение",t:"Скальные туфли для начинающих",d:"Удобная колодка на каждый день.",p:"7 900"},
+    {cat:"Снаряжение",t:"Мешочек для магнезии",d:"С поясом и щёткой.",p:"1 600"},
+    {cat:"Снаряжение",t:"Магнезия 200 г",d:"Мелкий помол.",p:"700"},
+    {cat:"Мерч",t:"Худи AUROCKS",d:"Плотный хлопок, вышитый логотип.",p:"5 500"},
+    {cat:"Мерч",t:"Футболка AUROCKS",d:"Оверсайз, графитовая.",p:"2 400"},
+    {cat:"Мерч",t:"Термокружка Au",d:"Для кофе с собой из нашей кофейни.",p:"1 900"},
+  ],
+  faq:[
+    ["Я никогда не занимался спортом. Мне подойдёт?","Да. Трассы есть на любой уровень — от совсем простых. Тренер подберёт нагрузку, а сравнивать себя ни с кем не нужно."],
+    ["Это опасно?","Боулдеринг проходит на небольшой высоте над толстыми матами. На вводном научим правильно падать — это главное правило безопасности."],
+    ["Нужно ли своё снаряжение?","Нет. На вводном скальники и магнезию выдаём бесплатно, дальше — прокат или покупка в нашем магазине."],
+    ["Можно прийти с ребёнком?","Да. Для детей с 6 лет есть пробное занятие и группы по возрасту. Пока ребёнок занимается, можно подождать в кофейне."],
+    ["Можно прийти без записи?","Свободное лазание — в любое время работы зала. А вот на первое занятие лучше записаться, чтобы тренер был свободен."],
+    ["Есть ли ограничения по возрасту и весу?","Взрослым ограничений нет. Если есть травмы или вопросы по здоровью — расскажите тренеру перед занятием."],
+  ]
+};
+const STRIP=["Боулдеринг","Кофейня","Сообщество","Выезды на скалы","Детские группы","Новые накрутки","Лекции","Коворкинг"];
+
+/* ====== helpers ====== */
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const phCls=i=>["","warm","light"][i%3];
+function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),2600)}
+
+function planCard(p){
+  const btn=p.cta==="lead"
+    ?`<a href="#" class="btn ${p.best?'btn-gold':'btn-ink'}" data-open="lead" ${p.kind?`data-kind="${p.kind}"`:''}>Записаться</a>`
+    :`<a href="#kabinet" class="btn ${p.best?'btn-gold':'btn-line'}">Купить онлайн</a>`;
+  return `<div class="plan ${p.best?'best':''}">${p.best?'<span class="chip gold flag">Советуем</span>':''}
+    <h3>${p.t}</h3><p class="muted">${p.d}</p><div class="p">${p.p} <small>${p.u}</small></div>
+    <ul>${p.f.map(x=>`<li>${x}</li>`).join('')}</ul>${btn}</div>`;
+}
+function eventCard(e,i){
+  return `<article class="card"><div class="ph ${phCls(i)}">${e.tag?`<span class="badge-open">${e.tag}</span>`:''}<span class="tag">Фото</span></div>
+  <div class="in"><div class="meta"><span class="chip ${e.cat==='Акции'?'gold':''}">${e.cat}</span><span class="muted">${e.date}</span></div>
+  <h3>${e.t}</h3><p>${e.d}</p><div class="foot"><a href="#" class="go" style="font-family:var(--head);font-weight:700;color:var(--ink);text-decoration:underline;text-decoration-color:var(--gold);text-decoration-thickness:2px;text-underline-offset:4px" data-open="event" data-i="${i}">Подробнее →</a></div></div></article>`;
+}
+
+/* ====== render ====== */
+$('#strip').innerHTML=(STRIP.map(s=>`${s}<i>✦</i>`).join('')).repeat(4);
+$('#homePlans').innerHTML=DATA.plans["Разовые"].map(planCard).join('');
+$('#homeEvents').innerHTML=DATA.events.slice(0,3).map(eventCard).join('');
+$('#faq').innerHTML=DATA.faq.map((q,i)=>`<details ${i===0?'open':''}><summary>${q[0]}</summary><p>${q[1]}</p></details>`).join('');
+
+let pTab="Разовые";
+function renderPrices(){
+  $('#priceTabs').innerHTML=Object.keys(DATA.plans).map(k=>`<button class="${k===pTab?'on':''}" data-pt="${k}">${k}</button>`).join('');
+  $('#plans').innerHTML=DATA.plans[pTab].map(planCard).join('');
+}
+renderPrices();
+$('#ptable').innerHTML='<tr><th>Услуга</th><th>Условия</th><th>Цена</th></tr>'+
+  Object.entries(DATA.plans).flatMap(([k,arr])=>arr.map(p=>`<tr><td>${p.t}</td><td class="muted">${p.d}</td><td>${p.p} ₽</td></tr>`)).join('');
+
+function filterList(box,list,key,render,target){
+  const cats=["Все",...new Set(list.map(x=>x[key]))];let cur="Все";
+  const draw=()=>{$(box).innerHTML=cats.map(c=>`<button class="${c===cur?'on':''}">${c}</button>`).join('');
+    $(target).innerHTML=list.map((x,i)=>[x,i]).filter(([x])=>cur==="Все"||x[key]===cur).map(([x,i])=>render(x,i)).join('');
+    $$(box+' button').forEach(b=>b.onclick=()=>{cur=b.textContent;draw()})};
+  draw();
+}
+filterList('#evFilter',DATA.events,'cat',eventCard,'#events');
+filterList('#shopFilter',DATA.shop,'cat',(s,i)=>`<article class="card"><div class="ph ${phCls(i+1)}"><span class="tag">${s.cat}</span></div><div class="in"><h3>${s.t}</h3><p>${s.d}</p><div class="foot"><span class="price">${s.p} ₽</span><button class="btn btn-ink btn-sm" data-open="order" data-i="${i}">Заказать</button></div></div></article>`,'#shop');
+$('#trainers').innerHTML=DATA.trainers.map((t,i)=>`<article class="card trainer"><div class="ph ${phCls(i)}" style="aspect-ratio:3/4"><span class="tag">Фото тренера</span></div><div class="in"><div class="meta">${t.tags.map(x=>`<span class="chip">${x}</span>`).join('')}</div><h3>${t.n}</h3><span class="muted" style="font-size:14px;font-weight:600">${t.r}</span><p>${t.d}</p><div class="foot"><a href="#raspisanie" class="btn btn-line btn-sm">Занятия в расписании</a></div></div></article>`).join('');
+
+/* schedule mock */
+const days=["Пн 18","Вт 19","Ср 20","Чт 21","Пт 22","Сб 23","Вс 24"];
+const S=[
+ [["intro","10:00","Вводное","Анна"],["grp","19:00","Новички","Анна"],["grp","20:30","Продолжающие","Максим"]],
+ [["kids","16:00","Дети 6–9","Ольга"],["intro","18:00","Вводное","Илья"],["grp","19:30","Новички","Анна"]],
+ [["intro","12:00","Вводное","Анна"],["kids","17:00","Дети 10–13","Ольга"],["ev","20:00","Лекция о выездах","Илья"]],
+ [["kids","16:00","Дети 6–9","Ольга"],["grp","19:00","Новички","Анна"],["grp","20:30","Продолжающие","Максим"]],
+ [["intro","18:00","Вводное","Илья"],["ev","20:00","Вечер сообщества",""]],
+ [["intro","11:00","Вводное","Анна"],["kids","12:30","Дети 6–9","Ольга"],["intro","15:00","Вводное","Илья"]],
+ [["kids","11:00","Семейное","Ольга"],["intro","13:00","Вводное","Анна"],["grp","16:00","Персональные","Максим"]],
+];
+const types={all:"Все",intro:"Вводное",grp:"Группы",kids:"Дети",ev:"События"};let sf="all";
+function renderSched(){
+  $('#schedFilter').innerHTML=Object.entries(types).map(([k,v])=>`<button class="${k===sf?'on':''}" data-sf="${k}">${v}</button>`).join('');
+  $('#sched').innerHTML=days.map((d,i)=>`<div class="d"><h4>${d.split(' ')[0]} <span>${d.split(' ')[1]}</span></h4>${S[i].filter(s=>sf==='all'||s[0]===sf).map(s=>`<div class="slot ${s[0]}" data-open="${s[0]==='intro'?'lead':'book'}" data-slot="${d} · ${s[1]} · ${s[2]}"><b>${s[1]}</b>${s[2]}${s[3]?`<br><span style="opacity:.7">${s[3]}</span>`:''}</div>`).join('')}</div>`).join('');
+}
+renderSched();
+
+/* ====== forms ====== */
+function leadForm({title,sub,kinds,id,extra=''}){
+  return `<div class="form-box" id="${id}">
+  <div><span class="eyebrow">Заявка</span><h2 style="margin:14px 0 18px">${title}</h2><p class="lead">${sub}</p></div>
+  <div><form class="f" novalidate>
+    <div class="row2">
+      <div class="field"><label>Имя</label><input name="name" placeholder="Как к вам обращаться"><span class="e">Укажите имя</span></div>
+      <div class="field"><label>Телефон</label><input name="phone" type="tel" placeholder="+7 (___) ___-__-__"><span class="e">Проверьте номер — нужно 11 цифр</span></div>
+    </div>
+    <div class="field"><label>Кто будет заниматься</label><select name="kind">${kinds.map(k=>`<option>${k}</option>`).join('')}</select></div>
+    ${extra}
+    <label class="consent"><input type="checkbox" name="agree"><span>Согласен на <a href="#">обработку персональных данных</a></span></label>
+    <button class="btn btn-gold arrow" style="width:100%">Отправить заявку</button>
+  </form>
+  <div class="ok-state"><div class="ic"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#1C1B19" stroke-width="3"><path d="M5 12l5 5 9-10"/></svg></div><h3>Заявка принята!</h3><p class="lead">Администратор позвонит в течение рабочего дня и подберёт время. До встречи в AUROCKS.</p><button class="btn btn-line" style="margin-top:22px;border-color:currentColor;color:inherit" data-reset>Отправить ещё одну</button></div>
+  </div></div>`;
+}
+$('#leadHome').innerHTML=leadForm({id:"f1",title:"Запишитесь на первое занятие",sub:"Оставьте имя и телефон — перезвоним, ответим на вопросы и подберём время. Это ни к чему не обязывает.",kinds:["Взрослый","Ребёнок","Взрослый с ребёнком"]});
+$('#leadNov').innerHTML=leadForm({id:"f2",title:"Готовы попробовать?",sub:"Вводное занятие с тренером — лучший способ начать. Перезвоним и всё расскажем.",kinds:["Взрослый","Ребёнок","Взрослый с ребёнком"]});
+$('#leadKorp').innerHTML=leadForm({id:"f3",title:"Обсудим ваш праздник",sub:"Расскажите о событии — пришлём программу и смету в течение дня.",kinds:["День рождения","Корпоратив","Закрытый вечер"],
+  extra:`<div class="row2"><div class="field"><label>Дата</label><input name="date" type="date"></div><div class="field"><label>Гостей</label><input name="guests" type="number" min="1" placeholder="Сколько человек"></div></div>`});
+
+function validate(form){
+  let ok=true;
+  const n=form.name, p=form.phone, a=form.agree;
+  const set=(el,bad)=>{el.closest('.field').classList.toggle('bad',bad);if(bad)ok=false};
+  set(n,n.value.trim().length<2);
+  set(p,p.value.replace(/\D/g,'').length<11);
+  a.closest('.consent').classList.toggle('bad',!a.checked); if(!a.checked)ok=false;
+  return ok;
+}
+document.addEventListener('submit',e=>{
+  const f=e.target; if(!f.classList.contains('f')||!f.name)return;
+  e.preventDefault();
+  if(!validate(f))return;
+  f.style.display='none'; f.nextElementSibling.style.display='block';
+});
+document.addEventListener('input',e=>{
+  if(e.target.name==='phone'){let d=e.target.value.replace(/\D/g,'');if(d[0]==='8')d='7'+d.slice(1);if(d&&d[0]!=='7')d='7'+d;d=d.slice(0,11);
+    let s='+7';if(d.length>1)s+=' ('+d.slice(1,4);if(d.length>=4)s+=') '+d.slice(4,7);if(d.length>=7)s+='-'+d.slice(7,9);if(d.length>=9)s+='-'+d.slice(9,11);e.target.value=d?s:''}
+  const fl=e.target.closest('.field.bad');if(fl)fl.classList.remove('bad');
+  const c=e.target.closest('.consent.bad');if(c)c.classList.remove('bad');
+});
+
+/* ====== modal ====== */
+function openModal(type,el){
+  let h='';
+  if(type==='lead'){const k=el?.dataset.kind||'Взрослый';
+    h=`<span class="eyebrow">Первое занятие</span><h2 style="font-size:34px;margin:12px 0 10px">Записаться на вводное</h2><p class="muted" style="margin-bottom:22px">${el?.dataset.slot?'Слот: '+el.dataset.slot:'Перезвоним и подберём удобное время.'}</p>
+    <form class="f light" novalidate>
+      <div class="field"><label>Имя</label><input name="name" placeholder="Как к вам обращаться"><span class="e">Укажите имя</span></div>
+      <div class="field"><label>Телефон</label><input name="phone" type="tel" placeholder="+7 (___) ___-__-__"><span class="e">Проверьте номер — нужно 11 цифр</span></div>
+      <div class="field"><label>Кто будет заниматься</label><select name="kind">${["Взрослый","Ребёнок","Взрослый с ребёнком"].map(o=>`<option ${o===k?'selected':''}>${o}</option>`).join('')}</select></div>
+      <label class="consent"><input type="checkbox" name="agree"><span>Согласен на <a href="#">обработку персональных данных</a></span></label>
+      <button class="btn btn-gold arrow" style="width:100%">Отправить</button></form>
+    <div class="ok-state"><div class="ic"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#1C1B19" stroke-width="3"><path d="M5 12l5 5 9-10"/></svg></div><h3>Готово!</h3><p class="muted">Скоро позвоним. А пока — загляните в раздел «Новичкам».</p></div>`;
+  }
+  if(type==='book'){h=`<span class="eyebrow">Онлайн-запись</span><h2 style="font-size:32px;margin:12px 0 10px">${el.dataset.slot}</h2><div class="widget" style="margin-top:18px"><div class="bar"><b>Запись</b><span class="src">Виджет 1С</span></div><div style="padding:28px;text-align:center" class="muted">Здесь откроется виджет онлайн-записи 1С:Фитнес клуб</div></div><a href="#kabinet" class="btn btn-ink" style="width:100%;margin-top:16px" data-close>Войти в кабинет</a>`;}
+  if(type==='event'){const e=DATA.events[+el.dataset.i];h=`<div class="ph" style="aspect-ratio:16/9;margin-bottom:20px"><span class="tag">Фото</span></div><div class="meta" style="display:flex;gap:8px;margin-bottom:12px"><span class="chip">${e.cat}</span><span class="muted">${e.date}</span></div><h2 style="font-size:32px;margin-bottom:14px">${e.t}</h2><p class="muted">${e.d}</p><a href="#raspisanie" class="btn btn-gold" style="width:100%;margin-top:22px" data-close>Записаться</a>`;}
+  if(type==='order'){const s=DATA.shop[+el.dataset.i];h=`<span class="eyebrow">Заказ через менеджера</span><h2 style="font-size:30px;margin:12px 0 6px">${s.t}</h2><p class="price" style="margin-bottom:20px">${s.p} ₽</p>
+    <form class="f light" novalidate><div class="field"><label>Имя</label><input name="name"><span class="e">Укажите имя</span></div><div class="field"><label>Телефон</label><input name="phone" type="tel" placeholder="+7 (___) ___-__-__"><span class="e">Проверьте номер</span></div><div class="field"><label>Размер / комментарий</label><input name="comment" placeholder="Например, 42 размер"></div>
+    <label class="consent"><input type="checkbox" name="agree"><span>Согласен на <a href="#">обработку персональных данных</a></span></label><button class="btn btn-ink" style="width:100%">Отправить заказ</button></form>
+    <div class="ok-state"><div class="ic"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#1C1B19" stroke-width="3"><path d="M5 12l5 5 9-10"/></svg></div><h3>Заказ отправлен</h3><p class="muted">Менеджер свяжется, уточнит наличие и время, когда забрать.</p></div>`;}
+  $('#modalBody').innerHTML=h;$('#modal').classList.add('open');
+}
+document.addEventListener('click',e=>{
+  const o=e.target.closest('[data-open]');
+  if(o){e.preventDefault();$('#mob').classList.remove('open');openModal(o.dataset.open,o);return}
+  if(e.target.closest('[data-close]')||e.target.id==='modal'){$('#modal').classList.remove('open')}
+  const sc=e.target.closest('[data-scroll]');
+  if(sc){e.preventDefault();const box=$('#'+sc.dataset.scroll);box.scrollIntoView({behavior:'smooth',block:'start'});const sel=box.querySelector('select');if(sel)sel.value=sc.dataset.kind}
+  const r=e.target.closest('[data-reset]');
+  if(r){const box=r.closest('.ok-state');box.style.display='none';const f=box.previousElementSibling;f.reset();f.style.display='grid'}
+  const pt=e.target.closest('[data-pt]');if(pt){pTab=pt.dataset.pt;renderPrices()}
+  const sfb=e.target.closest('[data-sf]');if(sfb){sf=sfb.dataset.sf;renderSched()}
+  if(e.target.closest('#burger'))$('#mob').classList.add('open');
+  if(e.target.closest('#mobClose')||e.target.closest('.mob a.m'))$('#mob').classList.remove('open');
+  const kids=e.target.closest('[data-kids]');
+  if(kids){e.preventDefault();location.hash='novichkam';setTimeout(()=>$('#deti').scrollIntoView({behavior:'smooth'}),60)}
+});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')$('#modal').classList.remove('open')});
+
+/* ====== router ====== */
+const VIEWS=["home","novichkam","ceny","raspisanie","trenery","sobytiya","korporativ","magazin","kontakty","kabinet"];
+function route(){
+  let v=(location.hash||'#home').slice(1); if(!VIEWS.includes(v))v='home';
+  $$('.view').forEach(x=>x.classList.toggle('on',x.id==='v-'+v));
+  $$('nav.main a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+v));
+  window.scrollTo(0,0);
+}
+window.addEventListener('hashchange',route);route();
+</script>
+</body>
+</html>
