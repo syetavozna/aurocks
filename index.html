@@ -6,7 +6,7 @@
 <title>AUROCKS — скалодром в Петербурге</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&family=Vollkorn:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#F1F1F1;
@@ -350,6 +350,153 @@ footer .legal{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap
   .top .wrap{height:64px}
   .modal .box{padding:26px 20px}
 }
+
+/* ============ DARK TECH THEME (по мотивам designs-art.ru) ============ */
+:root{
+  --bg:#090C10;--bg-2:#11161D;--paper:#0F141A;
+  --ink:#F6F8FB;--ink-2:#B7C0CB;--muted:#8F9AA7;--line:rgba(255,255,255,.1);
+  --gold:#3F7CFF;--gold-d:#75A1FF;--blue:#3F7CFF;--blue-l:#75A1FF;
+  --r:16px;
+  --head:'Inter',system-ui,sans-serif;--body:'Inter',system-ui,sans-serif;--serif:'Inter',system-ui,sans-serif;
+}
+body{background:
+  radial-gradient(900px 500px at 85% -5%,rgba(63,124,255,.16),transparent 70%),
+  radial-gradient(700px 500px at -10% 30%,rgba(63,124,255,.07),transparent 70%),var(--bg) no-repeat;color:var(--ink)}
+h1,h2,h3,h4{font-weight:650;letter-spacing:-.045em}
+h1{letter-spacing:-.055em;line-height:1}
+h3{letter-spacing:-.02em;font-weight:600}
+.lead{font-family:var(--body);font-size:clamp(17px,1.4vw,19px);line-height:1.55;color:var(--ink-2)}
+.hl-u,.hero h1 span,.quote blockquote em{background:none;color:var(--blue-l);padding:0}
+.eyebrow{color:var(--blue-l);font-weight:700;font-size:12px;letter-spacing:.16em}
+.hero .eyebrow{color:#9BA7B5}
+.hero .eyebrow::before{content:"";width:7px;height:7px;border-radius:50%;background:#B6F36B;box-shadow:0 0 10px #B6F36B}
+
+/* buttons: 12px radius, blue primary */
+.btn{border-radius:12px;font-weight:700;height:52px}
+.btn-sm{height:42px}
+.btn-gold,.mob .btn-gold,.form-box .btn-gold,.plan.best .btn-gold{background:var(--blue);color:#fff;box-shadow:0 8px 24px -10px rgba(63,124,255,.8)}
+.btn-gold:hover,.mob .btn-gold:hover,.form-box .btn-gold:hover,.plan.best .btn-gold:hover{background:#2F6BEE}
+.btn-ink{background:#fff;color:#0A0D11}
+.btn-ink:hover{background:#DCE4EE}
+.btn-line{border:1px solid var(--line);background:rgba(255,255,255,.02);color:var(--ink)}
+.btn-line:hover{background:#fff;color:#0A0D11;border-color:#fff}
+.arrow::after,.form-box .btn-gold.arrow::after{width:auto;height:auto;background:none;color:inherit;margin-left:2px}
+.btn-line.arrow::after,.btn-line.arrow:hover::after{background:none;color:inherit}
+.arrow{padding-right:26px}
+
+/* header */
+header.top{background:rgba(9,12,16,.82);border-bottom:1px solid var(--line)}
+.logo{letter-spacing:-.04em;font-weight:800}
+.logo b{border:0;background:var(--blue);color:#fff;border-radius:10px;font-size:13px}
+nav.main a{color:#C7CED7;font-weight:500}
+nav.main a:hover,nav.main a.on{background:rgba(255,255,255,.06);color:#fff}
+nav.main a.nb{box-shadow:none;color:var(--blue-l)}
+.lk:hover{background:rgba(255,255,255,.06)}
+.burger{background:var(--bg-2);color:#fff;border:1px solid var(--line);border-radius:12px}
+.mob{background:#090C10}
+.mob a.m{border-bottom-color:var(--line)}
+.mob a.m[style]{color:var(--blue-l)!important}
+.mob .btn-line{border-color:var(--line)}
+#mobClose{background:var(--bg-2)!important;color:#fff!important}
+
+/* cards */
+.card,.plan,.step,.tile,.widget,.moment,.cert,.ptable{background:var(--paper);border:1px solid var(--line)}
+.tile:hover,.card:hover{border-color:rgba(63,124,255,.55);box-shadow:0 20px 50px -30px rgba(63,124,255,.7)}
+.card{transition:.25s}
+.step::before{color:var(--blue-l)}
+.step.hl,.plan.best{background:linear-gradient(180deg,rgba(63,124,255,.16),rgba(63,124,255,.04)),var(--paper);border-color:rgba(63,124,255,.55);color:var(--ink)}
+.step.hl p{color:var(--ink-2)}
+.plan.best .muted{color:var(--muted)}
+.plan li::before{color:var(--blue-l)}
+.values{background:var(--line);border-color:var(--line)}
+.values div{background:var(--paper)}
+.chip{background:rgba(255,255,255,.07);color:var(--ink);border-radius:8px}
+.chip.gold,.badge-open{background:var(--blue);color:#fff}
+.badge-open{border-radius:10px}
+.chip.ink{background:#fff;color:#0A0D11}
+.tile .go,a.go{color:var(--blue-l)!important;text-decoration:none!important}
+
+/* placeholders */
+.ph,.ph.warm,.ph.light{color:#C7D3E3;background:
+  radial-gradient(80% 70% at 80% 10%,rgba(63,124,255,.35),transparent 65%),
+  linear-gradient(160deg,#18202B,#0B0F14)}
+.ph.warm{background:radial-gradient(80% 70% at 15% 20%,rgba(117,161,255,.3),transparent 65%),linear-gradient(160deg,#1A2230,#0C1016)}
+.ph.light{background:radial-gradient(90% 80% at 50% 0%,rgba(63,124,255,.25),transparent 65%),linear-gradient(170deg,#212A37,#10151C)}
+.ph::before,.ph.light::before{opacity:.5;background-image:
+  linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);
+  background-size:32px 32px}
+.hero-img{border:1px solid var(--line);box-shadow:0 40px 100px -40px rgba(63,124,255,.55)}
+
+/* stats */
+.hero-facts div{border-top-color:var(--line)}
+.hero-facts b{font-weight:650;color:#fff}
+.hero-facts span{font-family:var(--body);color:var(--muted);font-size:15px}
+
+.strip{background:var(--paper);color:var(--ink);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.strip i{color:var(--blue);opacity:1}
+
+/* light section — как светлые блоки у референса */
+.day{--ink:#0A0D11;--ink-2:#4B5563;--muted:#6B7280;--paper:#fff;--line:#E3E8EF;--blue-l:#3F7CFF;
+  background:#F5F7FA;color:var(--ink);border-radius:28px}
+.day .lead{color:var(--ink-2)}
+.day .moment{border:1px solid var(--line);border-radius:20px;box-shadow:0 10px 30px -20px rgba(15,23,42,.25)}
+.day .btn-ink{background:#0A0D11;color:#fff}
+.day .ph .tag{color:#E5ECF6}
+
+/* tables / filters / schedule */
+.price-tabs{background:var(--bg-2);border:1px solid var(--line);border-radius:14px}
+.price-tabs button{border-radius:10px;color:var(--ink-2)}
+.price-tabs button.on{background:var(--blue);color:#fff;box-shadow:none}
+.filters button{background:var(--paper);border:1px solid var(--line);color:var(--ink-2);border-radius:10px}
+.filters button.on{background:var(--blue);border-color:var(--blue);color:#fff}
+.ptable th{background:var(--bg-2)}
+.ptable td,.ptable th{border-bottom-color:var(--line)}
+.sched{background:var(--line)}
+.sched .d{background:var(--paper)}
+.slot.intro{background:rgba(63,124,255,.18)}
+.slot.kids{background:rgba(182,243,107,.12)}
+.slot.grp{background:rgba(255,255,255,.06)}
+.slot.ev{background:var(--blue);color:#fff}
+.slot:hover{border-color:var(--blue-l)}
+.legend i[style*="F6E6C8"]{background:rgba(63,124,255,.45)!important}
+.legend i[style*="E2E7DF"]{background:rgba(182,243,107,.35)!important}
+.legend i[style*="var(--ink)"]{background:var(--blue)!important}
+.faq summary::after{color:var(--blue-l)}
+.list-check li::before{background-color:var(--blue);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='3'%3E%3Cpath d='M5 12l5 5 9-10'/%3E%3C/svg%3E")}
+
+/* forms */
+.form-box{background:radial-gradient(600px 300px at 100% 0%,rgba(63,124,255,.18),transparent 70%),var(--paper);color:var(--ink);border:1px solid var(--line);border-radius:24px}
+.form-box .lead{color:var(--ink-2)}
+.field label,.f.light .field label{color:#9BA7B5;font-weight:500}
+.field input,.field select,.field textarea,.f.light .field input,.f.light .field select,.f.light .field textarea{background:#0A0D11;border:1px solid var(--line);color:#fff;border-radius:12px}
+.field input::placeholder{color:#5D6876}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--blue);box-shadow:0 0 0 4px rgba(63,124,255,.18)}
+option{background:#0F141A;color:#fff}
+.consent,.f.light .consent{color:#9BA7B5}
+.consent a{color:var(--blue-l)}
+.consent input{accent-color:var(--blue)}
+.ok-state .ic{background:var(--blue)}
+.ok-state .ic svg{stroke:#fff}
+.modal{background:rgba(3,5,8,.72);backdrop-filter:blur(6px)}
+.modal .box{background:#0F141A;border:1px solid var(--line)}
+.modal .x{background:rgba(255,255,255,.07);color:#fff}
+
+/* misc */
+.map{background:linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px) 0 0/40px 40px,linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px) 0 0/40px 40px,#0F141A;border:1px solid var(--line)}
+.map::before,.map::after{background:#1A222D}
+.pin{background:var(--blue);color:#fff}
+.pin::after{border-top-color:var(--blue)}
+.info-list div{border-bottom-color:var(--line)}
+.cert-card{background:radial-gradient(80% 80% at 90% 10%,rgba(117,161,255,.9),transparent 60%),linear-gradient(135deg,#1F4FD1,#0D1B44);color:#fff;box-shadow:0 30px 60px -25px rgba(63,124,255,.8)}
+.cert-card .logo b{background:#fff!important;color:#1F4FD1!important}
+footer{background:#06080B;border-top:1px solid var(--line);color:#9BA7B5}
+footer h4{color:#fff}
+footer a:hover{color:var(--blue-l)}
+footer .big{color:#fff;opacity:.95}
+footer .big span{color:var(--blue)}
+footer .legal{color:#5D6876}
+.toast{background:#fff;color:#0A0D11}
+.phero{border-bottom-color:var(--line)}
 </style>
 </head>
 <body>
@@ -379,7 +526,7 @@ footer .legal{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap
 </header>
 
 <div class="mob" id="mob">
-  <div class="row"><span class="logo" style="color:var(--paper)"><b>Au</b>AUROCKS</span><button class="burger" style="display:grid;background:var(--paper);color:var(--ink)" id="mobClose">✕</button></div>
+  <div class="row"><span class="logo" style="color:#fff"><b>Au</b>AUROCKS</span><button class="burger" style="display:grid;background:var(--paper);color:var(--ink)" id="mobClose">✕</button></div>
   <a class="m" href="#novichkam" style="color:var(--gold)">Новичкам</a>
   <a class="m" href="#raspisanie">Расписание</a>
   <a class="m" href="#ceny">Цены и абонементы</a>
@@ -559,7 +706,7 @@ footer .legal{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap
   <section style="padding-top:0"><div class="wrap">
     <div class="cert">
       <div><span class="eyebrow">Подарок</span><h2 style="margin:14px 0 16px">Подарочные сертификаты</h2><p class="lead" style="margin-bottom:26px">Вводное занятие, разовые визиты или абонемент — в подарок. Сертификат оформляется в личном кабинете или на ресепшене.</p><a href="#kabinet" class="btn btn-ink arrow">Оформить в кабинете</a></div>
-      <div class="cert-card"><span class="logo"><b style="background:var(--ink);color:var(--gold)">Au</b>AUROCKS</span><div><span style="font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase">Подарочный сертификат</span><br><b>Первая трасса</b></div></div>
+      <div class="cert-card"><span class="logo"><b>Au</b>AUROCKS</span><div><span style="font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase">Подарочный сертификат</span><br><b>Первая трасса</b></div></div>
     </div>
   </div></section>
 </div>
@@ -617,7 +764,7 @@ footer .legal{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap
   <section><div class="wrap">
     <div class="plans">
       <div class="plan"><span class="chip">Дети 6–14</span><h3>День рождения</h3><p class="muted">2 часа: игры на стене, мини-соревнование, зона для торта.</p><div class="p">от 18 000 <small>₽</small></div><ul><li>До 12 детей</li><li>2 инструктора</li><li>Снаряжение</li></ul><a href="#" class="btn btn-line" data-scroll="leadKorp" data-kind="День рождения">Обсудить</a></div>
-      <div class="plan best"><span class="chip gold flag">Популярно</span><span class="chip ink" style="background:#333">Команды</span><h3>Тимбилдинг</h3><p class="muted">Вводное, командные задания на трассах, кофе-брейк.</p><div class="p">от 45 000 <small>₽</small></div><ul><li>До 30 человек</li><li>Ведущий и инструкторы</li><li>Кейтеринг по запросу</li></ul><a href="#" class="btn btn-gold" data-scroll="leadKorp" data-kind="Корпоратив">Обсудить</a></div>
+      <div class="plan best"><span class="chip gold flag">Популярно</span><span class="chip">Команды</span><h3>Тимбилдинг</h3><p class="muted">Вводное, командные задания на трассах, кофе-брейк.</p><div class="p">от 45 000 <small>₽</small></div><ul><li>До 30 человек</li><li>Ведущий и инструкторы</li><li>Кейтеринг по запросу</li></ul><a href="#" class="btn btn-gold" data-scroll="leadKorp" data-kind="Корпоратив">Обсудить</a></div>
       <div class="plan"><span class="chip">Под ключ</span><h3>Закрытый вечер</h3><p class="muted">Зал целиком под ваше событие: музыка, свет, бар.</p><div class="p">по запросу</div><ul><li>До 80 гостей</li><li>Своя программа</li><li>Фото и видео</li></ul><a href="#" class="btn btn-line" data-scroll="leadKorp" data-kind="Закрытый вечер">Обсудить</a></div>
     </div>
     <p class="note">Цены — плейсхолдеры.</p>
@@ -682,7 +829,7 @@ footer .legal{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap
 <footer>
   <div class="wrap">
     <div class="g">
-      <div><span class="logo" style="color:var(--paper)"><b>Au</b>AUROCKS</span><p style="margin-top:16px;max-width:300px;font-size:15px">Боулдеринговый скалодром и второй дом для тех, кто любит движение и людей.</p></div>
+      <div><span class="logo" style="color:#fff"><b>Au</b>AUROCKS</span><p style="margin-top:16px;max-width:300px;font-size:15px">Боулдеринговый скалодром и второй дом для тех, кто любит движение и людей.</p></div>
       <div><h4>Начать</h4><a href="#novichkam">Новичкам</a><a href="#novichkam" data-kids>Детям</a><a href="#ceny">Цены</a><a href="#raspisanie">Расписание</a></div>
       <div><h4>AUROCKS</h4><a href="#trenery">Тренеры</a><a href="#sobytiya">События</a><a href="#korporativ">Праздники</a><a href="#magazin">Магазин</a></div>
       <div><h4>Связь</h4><a href="#kontakty">Контакты</a><a href="#kabinet">Личный кабинет</a><span style="display:block;padding:4px 0">+7 (812) 000-00-00</span></div>
